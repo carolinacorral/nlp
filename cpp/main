@@ -1,0 +1,24 @@
+#include "toke.h"
+using namespace std;
+
+int main() {
+
+
+    string text = "Este es un texto para tokenizacion";
+    Document test = Document().tokenize(text);
+
+    Document test_2 = test.remove_stopwords();
+
+
+    for (int i = 0; i < test_2.size(); i++) {
+        cout << test_2[i].token << endl;
+    }
+
+    wstring mywide = L"Soy Mongchan";
+
+    string str = transform_special(mywide);
+    cout<< str << endl;
+
+    return 0;
+
+}
