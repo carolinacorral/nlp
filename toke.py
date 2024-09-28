@@ -17,7 +17,7 @@ def es_acento(letra):
     return False
 
 def es_letra(letra: str) -> bool:
-    return (65 <= ord(letra) <= 90) or (97 <= ord(letra) <= 122)
+    return (65 <= ord(letra) <= 90) or (97 <= ord(letra) <= 122) or es_acento(letra)
 
 def es_numero(letra: str) -> bool:
     return (48 <= ord(letra) <= 57)
@@ -54,7 +54,7 @@ def toke_numeros(texto: str) -> list:
     
     while i < len(texto):
         if es_acento(texto[i]) or es_letra(texto[i]):
-            actual += texto[i]
+            actual += mayusToMinus(texto[i])
         elif es_numero(texto[i]):
             if actual:
                 tokens += [actual,texto[i]]
@@ -79,13 +79,35 @@ def remove_nums(word):
     while i < len(word) and not es_letra(word[i]):
         i += 1
 
-    while j >= 0 and not es_letra(word[j]):
+    while j >= 0 and not es_letra(word[j]) and not es_acento(word[j]):
         j -= 1
 
     if i > j:
         return word
     else:
         return word[i:j+1]
+
+def toke_nums_final(texto: str) -> list:
+    i = 0
+    tokens = []
+    actual = ""
+
+    while i < len(texto):
+        if es_acento(texto[i]) or es_letra(texto[i]) or es_numero(texto[i]):
+            actual += mayusToMinus(texto[i])
+        elif texto[i] == ' ':
+            if actual != "":
+                actual = remove_nums(actual)
+                tokens += [actual]
+            actual = ""
+        i += 1
+    
+    if actual != "":
+        actual = remove_nums(actual)
+        tokens += [actual]
+
+    return tokens
+
 
 def toke_stop_words(texto: str) -> list:
     i = 0
@@ -110,8 +132,8 @@ def toke_stop_words(texto: str) -> list:
     return tokens
 
 if __name__ == "__main__":
-    texto = "EsTE Es UN te1xto para probar tokenización11"
-    #texto2 = "Hola mi nombre es marco y yo estudie en la upitta!Saludos. Las dudas de los compañeros "
+    texto = "[ÉsTE Es UN te1xto para probar 111tokenizació. aTTE 12 EL PEJE"
+    
     ans = toke_stop_words(texto)
     
     for token in ans:
