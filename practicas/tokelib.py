@@ -21,11 +21,12 @@ def is_stopword(word):
     
 
 def to_lower(letter):
+    special = ["Á", "É", "Í", "Ó", "Ú","Ñ"]
+    special_lower = ["á","é","í","ó","ú","ñ"]
+    
     if(65 <= ord(letter) <= 90):
         return chr(ord(letter) + 32)
-    elif is_special(letter):
-        special = ["Á", "É", "Í", "Ó", "Ú","Ñ"]
-        special_lower = ["á","é","í","ó","ú","ñ"]
+    elif letter in special:
         return special_lower[special.index(letter)]
     else:
         return letter
