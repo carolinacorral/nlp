@@ -29,6 +29,7 @@ def mayusToMinus(letra: str):
         return letra
 
 def toke_acentos(texto: str) -> list:
+    # Practica 1
     i = 0
     tokens = []
     actual = ""
@@ -48,6 +49,7 @@ def toke_acentos(texto: str) -> list:
     return tokens
 
 def toke_numeros(texto: str) -> list:
+    # Practica 1
     i = 0
     tokens = []
     actual = ""
@@ -128,7 +130,6 @@ def toke_stop_words(texto: str) -> list:
     if actual != "" and not(actual in stopwords):
         actual = remove_nums(actual)
         tokens += [actual]
-
     return tokens
 
 if __name__ == "__main__":
