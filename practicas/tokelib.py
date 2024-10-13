@@ -27,6 +27,8 @@ def to_lower(letter):
         special = ["Á", "É", "Í", "Ó", "Ú","Ñ"]
         special_lower = ["á","é","í","ó","ú","ñ"]
         return special_lower[special.index(letter)]
+    else:
+        return letter
 
 def is_numeric(letter):
     if(48 <= ord(letter) <= 57):
