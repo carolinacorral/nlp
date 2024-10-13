@@ -1,7 +1,7 @@
 import numpy as np
 
 def is_special(word):
-    sc = ["Á", "É", "Í", "Ó", "Ú", "á", "é", "í", "ó","ñ","ú"]
+    sc = ["Á", "É", "Í", "Ó", "Ú", "á", "é", "í", "ó","ú","ñ","Ñ"]
     
     if word in sc : 
         return True 
