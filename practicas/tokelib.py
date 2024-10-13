@@ -1,4 +1,5 @@
 import numpy as np
+
 def is_special(word):
     sc = ["Á", "É", "Í", "Ó", "Ú", "á", "é", "í", "ó","ñ","ú"]
     
@@ -22,8 +23,10 @@ def is_stopword(word):
 def to_lower(letter):
     if(65 <= ord(letter) <= 90):
         return chr(ord(letter) + 32)
-    else:
-        return letter
+    elif is_special(letter):
+        special = ["Á", "É", "Í", "Ó", "Ú","Ñ"]
+        special_lower = ["á","é","í","ó","ú","ñ"]
+        return special_lower[special.index(letter)]
 
 def is_numeric(letter):
     if(48 <= ord(letter) <= 57):
@@ -104,6 +107,5 @@ def tokenize(texto,parser = ' ',include_numbers = False):
         
     return tokens
 
-
-
-
+if __name__ == '__main__':
+    print(to_lower("Á"))
