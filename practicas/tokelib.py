@@ -11,16 +11,13 @@ def is_special(word):
     bool: True si el carácter es especial, False en caso contrario.
     """
     sc = ["Á", "É", "Í", "Ó", "Ú", "á", "é", "í", "ó", "ú", "ñ", "Ñ"]
-    
-    if word in sc: 
-        return True 
-    else:
-        return False
+
+    return word in sc
 
 def is_alpha(word):
     """
     Verifica si un carácter es alfabético (A-Z, a-z).
-    
+
     Parámetros:
     word (str): Carácter a verificar.
     
@@ -40,11 +37,7 @@ def is_stopword(word):
     bool: True si la palabra es una stopword, False en caso contrario.
     """
     stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
-    
-    if word in stopwords:
-        return True
-    else:
-        return False  
+    return word in stopwords
 
 def to_lower(letter):
     """

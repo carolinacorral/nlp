@@ -109,7 +109,7 @@ def toke_remove_nums(document):
 def run():
     # Ejemplo de ejecución: tokenizar y remover números de un documento
     document = "[ÉsTE Es UN te1xto para probar 111tokenizació. aTTE 12 EL PEJE"
-    print(toke_acentos(document))  # Imprime los tokens procesados
+    print(toke_remove_nums(document))  # Imprime los tokens procesados
 
 if __name__ == '__main__':
     run()  # Llama a la función `run` si se ejecuta este script
