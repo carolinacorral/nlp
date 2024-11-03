@@ -107,8 +107,10 @@ def tf_idf(documents, test_word):
         tf_idf.append(tf)
     
     # Calcular el IDF (Inverso de la frecuencia de documentos)
-    idf = np.log10(len(documents) / word_count)
-    
+    if word_count > 0:
+        idf = np.log10(len(documents) / word_count)
+    else:
+        idf = 0
     # Multiplicar TF por IDF
     for i in range(len(tf_idf)):
         tf_idf[i] = tf_idf[i] * idf
