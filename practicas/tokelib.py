@@ -115,7 +115,7 @@ def tf_idf(documents, test_word):
     
     return tf_idf
 
-def remove_stopwords(doc):
+def remove_stopwords(doc, english = False):
     """
     Elimina las stopwords de un documento.
     
@@ -127,7 +127,7 @@ def remove_stopwords(doc):
     """
     new_doc = []
     for word in doc:
-        if not is_stopword(word):
+        if not is_stopword(word, english):
             new_doc.append(word)
     return new_doc
 
@@ -156,7 +156,7 @@ def append_cpp(array, element):
     
     return new_array
 
-def tokenize(texto, parser=' ', include_numbers=False):
+def tokenize(texto, parser=' ', include_numbers=False, english = False):
     """
     Tokeniza un texto en una lista de palabras, con la opción de incluir números como parte de los tokens.
     
