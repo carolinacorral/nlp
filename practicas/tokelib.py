@@ -26,18 +26,23 @@ def is_alpha(word):
     """
     return (65 <= ord(word) <= 90) or (97 <= ord(word) <= 122)
 
-def is_stopword(word):
+def is_stopword(word, english=False):
     """
-    Verifica si una palabra es una stopword (palabra común que no aporta significado).
-    
+    Verifica si una palabra es una stopword (palabra común que no aporta significado en un análisis de texto).
+
     Parámetros:
-    word (str): Palabra a verificar.
-    
+    word (str): La palabra a verificar.
+    english (bool): Opcional. Si es True, verifica si la palabra es una stopword en inglés. Si es False, usa stopwords en español. El valor predeterminado es False.
+
     Retorna:
-    bool: True si la palabra es una stopword, False en caso contrario.
+    bool: True si la palabra es una stopword en el idioma especificado, False en caso contrario.
     """
-    stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
+    if english == False:
+        stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
+    else:
+        stopwords = ["the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
     return word in stopwords
+
 
 def to_lower(letter):
     """
