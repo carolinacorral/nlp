@@ -40,7 +40,7 @@ def is_stopword(word, english=False):
     if english == False:
         stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
     else:
-        stopwords = ["the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
+        stopwords = ["him","on","in","to","her","then", "she", "his", "the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
     return word in stopwords
 
 
@@ -156,7 +156,7 @@ def append_cpp(array, element):
     
     return new_array
 
-def tokenize(texto, parser=' ', include_numbers=False, english = False):
+def tokenize(texto, parser=' ', include_numbers=False):
     """
     Tokeniza un texto en una lista de palabras, con la opción de incluir números como parte de los tokens.
     
