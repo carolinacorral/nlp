@@ -213,13 +213,21 @@ def get_tf_idf(corpus):
     
     return words_dict
 
-def get_vocabulary(corpus: list) -> list:
+def get_vocabulary(corpus: list, is_nested=True) -> list:
     vocabulary = []
+    vocabulary_dict = {}
     
-    for document in corpus:
-        for word in document:
-            if word not in vocabulary:
-                vocabulary = append_cpp(vocabulary, word)
+    if (is_nested):
+        for document in corpus:
+            for word in document:
+                if word not in vocabulary_dict:
+                    vocabulary_dict[word] = []
+                    vocabulary = append_cpp(vocabulary, word)
+    else:
+        for word in corpus:
+                if word not in vocabulary_dict:
+                    vocabulary_dict[word] = []
+                    vocabulary = append_cpp(vocabulary, word)
     return vocabulary
 
 def bag_of_words_sentence(vocabulary: list, corpus: list) -> list:
