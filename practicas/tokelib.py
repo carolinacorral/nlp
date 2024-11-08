@@ -201,5 +201,63 @@ def tokenize(texto, parser=' ', include_numbers=False):
         
     return tokens
 
-if __name__ == '__main__':
-    print(to_lower("Á"))
+def get_tf_idf(corpus):
+    words_dict = {} # diccionario a retornar
+
+    for doc in corpus:
+        for word in doc:
+            # no se repiten las palabras
+            if word not in words_dict.keys():
+                # se guarda la palabra como llave y una lista de dos TF-IDF como valor
+                words_dict[word] = [tf_idf(corpus,word)[0],tf_idf(corpus,word)[1]]
+    
+    return words_dict
+
+def get_vocabulary(corpus: list) -> list:
+    vocabulary = []
+    
+    for document in corpus:
+        for word in document:
+            if word not in vocabulary:
+                vocabulary = append_cpp(vocabulary, word)
+    return vocabulary
+
+def bag_of_words_sentence(vocabulary: list, corpus: list) -> list:
+    print(f'Vocabulario-------{vocabulary}')
+    bag = []
+
+    for doc in corpus:
+        vocabulary_vector_token = [0]*len(vocabulary)
+        for token in doc:
+            print(token)
+            vocabulary_vector_token[vocabulary.index(token)] += 1
+        print(vocabulary_vector_token)
+        bag += [vocabulary_vector_token]
+
+    return bag
+
+def bag_of_words_w(vocabulary: list, corpus: list) -> list:
+    print(f'Vocabulario-------{vocabulary}')
+    bag = []
+    words_already = []
+
+    for word in vocabulary:
+        # Una fila por palabra unica
+        # En caso de que la palabra ya haya sido contada, se incrementa el contador en la fila correspondiente y columna correspondiente
+        # Cada columna es una palabra del vocabulario
+        # Cada fila es una palabra unica del documento -> token
+        # Cada celda es el contador de la palabra en el documento
+        vocabulary_vector_token = [0]*len(vocabulary)
+        for doc in corpus:
+            for token in doc:
+                if token == word:
+                    vocabulary_vector_token[vocabulary.index(token)] += 1
+        bag += [vocabulary_vector_token]
+
+        print(f'Conteo para la palabra "{word}": {vocabulary_vector_token}')
+
+    return bag
+
+
+
+
