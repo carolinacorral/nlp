@@ -43,7 +43,6 @@ def is_stopword(word, english=False):
         stopwords = ["him","on","in","to","her","then", "she", "his", "the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
     return word in stopwords
 
-
 def to_lower(letter):
     """
     Convierte un carácter a su versión en minúscula. Si es un carácter especial con acento, lo convierte también.
@@ -213,19 +212,19 @@ def get_tf_idf(corpus):
     
     return words_dict
 
-def get_vocabulary(corpus: list, is_nested=True) -> list:
+def get_vocabulary(corpus: list, is_nested=True, repeat_words=False) -> list:
     vocabulary = []
     vocabulary_dict = {}
     
     if (is_nested):
         for document in corpus:
             for word in document:
-                if word not in vocabulary_dict:
+                if word not in vocabulary_dict or repeat_words:
                     vocabulary_dict[word] = []
                     vocabulary = append_cpp(vocabulary, word)
     else:
         for word in corpus:
-                if word not in vocabulary_dict:
+                if word not in vocabulary_dict or repeat_words:
                     vocabulary_dict[word] = []
                     vocabulary = append_cpp(vocabulary, word)
     return vocabulary
@@ -266,6 +265,37 @@ def bag_of_words_w(vocabulary: list, corpus: list) -> list:
 
     return bag
 
+def co_ocurrence_matrix(corpus) -> list:
+    """
+        Retorna la matriz de co-ocurrencia por palabras a partir de un corpus
 
+        Parámetros:
+        corpus: str -> Cuerpo de documentos
+
+        Retorno
+        matrix: list -> Matriz de co-ocurrencia
+    """
+    vocabulary = get_vocabulary(corpus)
+
+    len_cor = len(corpus)
+    indx = [0]*len_cor
+    
+    index_map = {}
+    c = 0
+    for i in range(len_cor):
+        element = corpus[i]
+        if element not in index_map:
+            index_map[element] = c 
+            c += 1
+        indx[i] = index_map[element]
+    
+    n = len(vocabulary) 
+
+    matrix = [[0] * n for _ in range(n)]
+    for k in range(len_cor-1):
+        i = indx[k]
+        j = indx[i+1]
+        matrix[i][j] += 1
+    return matrix
 
 
