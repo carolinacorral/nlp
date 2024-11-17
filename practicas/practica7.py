@@ -13,4 +13,19 @@ vocabulary = tk.get_vocabulary(corpus=corpus, is_nested=True)
 
 n_grams = tk.get_n_grams(n=2, corpus=corpus)
 
-print(n_grams)
+print(f"Corpus: {corpus}\n")
+
+print(f"Vocabulary: {vocabulary}\n")
+
+print(f'N grams {n_grams}')
+
+vocab_index = tk.get_word_index(vocabulary=vocabulary)
+
+print(vocab_index)
+
+n_grams_numbers = tk.convert_ngrams_numbers(ngrams=n_grams, vocab_index=vocab_index)
+
+print(n_grams_numbers)
+
+
+### Red Neuronal Pre

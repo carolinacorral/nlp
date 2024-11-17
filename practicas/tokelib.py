@@ -316,3 +316,19 @@ def get_n_grams(n: int, corpus: list):
         
     return n_grams
 
+def convert_ngrams_numbers(ngrams: list, vocab_index: dict) -> list:
+    n = []
+    for ngram in ngrams:
+        gram = []
+        for word in ngram:
+            gram = append_cpp(gram, vocab_index.get(word))
+        n = append_cpp(n, gram)
+    return n
+
+def get_word_index(vocabulary: list) -> dict:
+    """
+        Retorna un diccionario donde la llave será
+        una palabra del vocabulario y su valor será
+        el íncide de la misma
+    """
+    return {word: vocabulary.index(word) for word in vocabulary}
