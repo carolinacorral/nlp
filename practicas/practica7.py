@@ -1,15 +1,14 @@
+import numpy as np
 import tokelib as tk
 
+sentences = [
+    "Hola, yo soy Caro y me gustan las focas",
+    "Soy Gsu y me gusta comer hamburguesas de pavo",
+    "Hola, soy Porto y me gusta comer chocolates de foca"
+]
 
+corpus = [tk.tokenize(sentence, parser=' ') for sentence in sentences]
 
-corpus = ["Hola, mi nombre es Port", "Hola, soy Mong", "Hola, soy Gsu"]
+vocabulary = tk.get_vocabulary(corpus=corpus, is_nested=True)
 
-tokens = list()
-
-for document in corpus:
-    document = tk.tokenize(document, parser=' ', include_numbers=True)
-    tokens = tk.append_cpp(tokens, tk.remove_stopwords(document))
-
-print(tokens)
-
-vocabulario = tk.get_vocabulary(tokens, is_nested=True, repeat_words=True)
+print(tk.get_n_grams(2, corpus))

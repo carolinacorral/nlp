@@ -212,19 +212,19 @@ def get_tf_idf(corpus):
     
     return words_dict
 
-def get_vocabulary(corpus: list, is_nested=True, repeat_words=False) -> list:
+def get_vocabulary(corpus: list, is_nested=True) -> list:
     vocabulary = []
     vocabulary_dict = {}
     
     if (is_nested):
         for document in corpus:
             for word in document:
-                if word not in vocabulary_dict or repeat_words:
+                if word not in vocabulary_dict:
                     vocabulary_dict[word] = []
                     vocabulary = append_cpp(vocabulary, word)
     else:
         for word in corpus:
-                if word not in vocabulary_dict or repeat_words:
+                if word not in vocabulary_dict:
                     vocabulary_dict[word] = []
                     vocabulary = append_cpp(vocabulary, word)
     return vocabulary
@@ -275,7 +275,7 @@ def co_ocurrence_matrix(corpus) -> list:
         Retorno
         matrix: list -> Matriz de co-ocurrencia
     """
-    vocabulary = get_vocabulary(corpus)
+    vocabulary = get_vocabulary(corpus, is_nested=True, repeat_words=True)
 
     len_cor = len(corpus)
     indx = [0]*len_cor
@@ -298,4 +298,19 @@ def co_ocurrence_matrix(corpus) -> list:
         matrix[i][j] += 1
     return matrix
 
+def get_n_grams(n: int, corpus: list):
+    """
+        Retorna una lista con los n-grams para un corpus
+
+        Parametros:
+        n: int -> Numero de elementos en cada conjunto
+        corpus: list -> Cuerpo tokenizado
+    """
+    n_grams = []
+    
+    for sentence in corpus:
+        for i in range(len(sentence) - n + 1):
+            n_grams = append_cpp(n_grams, (sentence[i:i + n]))
+        
+    return n_grams
 
