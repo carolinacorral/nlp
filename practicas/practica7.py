@@ -11,4 +11,6 @@ corpus = [tk.tokenize(sentence, parser=' ') for sentence in sentences]
 
 vocabulary = tk.get_vocabulary(corpus=corpus, is_nested=True)
 
-print(tk.get_n_grams(2, corpus))
+n_grams = tk.get_n_grams(n=2, corpus=corpus)
+
+print(n_grams)

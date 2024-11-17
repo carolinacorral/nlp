@@ -309,6 +309,8 @@ def get_n_grams(n: int, corpus: list):
     n_grams = []
     
     for sentence in corpus:
+        if n > len(sentence):
+            raise ValueError(f"El valor de n no puede ser mayor que la longitud del texto. Longitud del texto: {len(sentence)}, n: {n}")
         for i in range(len(sentence) - n + 1):
             n_grams = append_cpp(n_grams, (sentence[i:i + n]))
         
