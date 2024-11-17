@@ -332,3 +332,11 @@ def get_word_index(vocabulary: list) -> dict:
         el íncide de la misma
     """
     return {word: vocabulary.index(word) for word in vocabulary}
+
+def one_hot_encode(indices, vocab_size):
+    one_hot_vectors = []
+    for index in indices:
+        one_hot_vector = [0] * vocab_size
+        one_hot_vector[index] = 1
+        one_hot_vectors = append_cpp(one_hot_vectors, one_hot_vector)
+    return one_hot_vectors
