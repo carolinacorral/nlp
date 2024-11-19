@@ -61,11 +61,14 @@ def build_model(X_one_hot, Y_one_hot, vocab_size):
 
     return model
 
+def similar_word():
+    pass
+
 def predict(input_text, model, vocab_index, vocab_size, n_gram_size):
     tokens = tk.tokenize(input_text, parser=' ')
 
-    if len(tokens) < n_gram_size - 1:
-        tokens = ['<PAD>'] * (n_gram_size - 1 - len(tokens)) + tokens
+    #if len(tokens) < n_gram_size - 1:
+    #    tokens = ['<PAD>'] * (n_gram_size - 1 - len(tokens)) + tokens
 
     input_tokens = tokens[-(n_gram_size-1):]
 
@@ -76,10 +79,6 @@ def predict(input_text, model, vocab_index, vocab_size, n_gram_size):
     predicted_phrase = ""
 
     predictions = model.predict(X_input)
-
-    print(predictions.shape)
-
-    print(np.sort(predictions))
 
     predicted_index = np.argmax(predictions)
 
@@ -94,5 +93,8 @@ n = 4
 
 X_one_hot, Y_one_hot, vocab_size, vocab_index = pre_built(n_gram_size=n)
 model = build_model(X_one_hot, Y_one_hot, vocab_size)
-predicted_word = predict(base, model, vocab_index, vocab_size, n)
-print(f"Palabra predicha: {predicted_word}")
+predicted_word = ""
+for i in range(15):
+    predicted_word = predict(base, model, vocab_index, vocab_size, n)
+    base = base + " " + predicted_word
+print(base)
