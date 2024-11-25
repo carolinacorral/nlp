@@ -94,7 +94,7 @@ n = 4
 X_one_hot, Y_one_hot, vocab_size, vocab_index = pre_built(n_gram_size=n)
 model = build_model(X_one_hot, Y_one_hot, vocab_size)
 predicted_word = ""
-for i in range(15):
+for i in range(10):
     predicted_word = predict(base, model, vocab_index, vocab_size, n)
     base = base + " " + predicted_word
 print(base)
