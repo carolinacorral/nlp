@@ -40,7 +40,7 @@ def is_stopword(word, english=False):
     if english == False:
         stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
     else:
-        stopwords = ["him","on","in","to","her","then", "she", "his", "the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
+        stopwords = ["at", "him","on","in","to","her","then", "she", "his", "the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
     return word in stopwords
 
 def to_lower(letter):
