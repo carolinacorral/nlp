@@ -20,7 +20,6 @@ def pre_built(n_gram_size: int):
 
     n_grams = tk.get_n_grams(n=n_gram_size, corpus=corpus)
 
-    vocab_index = tk.get_word_index(vocabulary=vocabulary)
 
     print(vocab_index)
 

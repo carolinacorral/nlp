@@ -38,7 +38,7 @@ def is_stopword(word, english=False):
     bool: True si la palabra es una stopword en el idioma especificado, False en caso contrario.
     """
     if english == False:
-        stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del"]
+        stopwords = ["el", "y", "eso", "la", "los", "las", "de", "en", "a", "un", "uno", "una", "es", "con", "para", "al", "del", "por", "esto", "su", "sus", "esto", "ha"]
     else:
         stopwords = ["at", "him","on","in","to","her","then", "she", "his", "the", "and", "that", "the", "this", "those", "these", "a", "an", "is", "with", "for", "of"]
     return word in stopwords
