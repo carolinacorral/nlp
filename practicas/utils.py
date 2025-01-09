@@ -6,7 +6,7 @@ from scipy.spatial.distance import cdist
 from nltk.corpus import wordnet
 import tokelib as tk
 
-def read_and_preprocess_corpus(filepath):
+def read(filepath):
     import tokelib as tk
     with open(filepath, 'r', encoding='utf-8') as file:
         text = file.read()
@@ -74,7 +74,7 @@ def closest_word(target_word: str,vocabulary: list[str]) -> tuple[str, float, in
     max_sim_row = vocabulary.index(max_similarity_score_word)
     return max_similarity_score_word,max_similarity, max_sim_row
 
-def visualize_embeddings_plotly(model, method, title, highlight_word, dimensions):
+def graph(model, method, title, highlight_word, dimensions):
 
     vectors = model.embeddings
     words = [model.idx_to_word[i] for i in range(len(model.idx_to_word))]
@@ -137,20 +137,20 @@ def main():
         '/Users/ismaelporto/Documents/nlp/practicas/etc/corpus_3.txt'
     ]
     
-    corpus_list = [read_and_preprocess_corpus(path) for path in corpus_paths]
+    corpus_list = [read(path) for path in corpus_paths]
     
     model = Word2Vec(window_size=5, embedding_dim=100, learning_rate=0.01)
     model.build_vocabulary(corpus_list)
     model.train(corpus_list, epochs=90)
     
     while True:
-        palabra = input("\nIngrese una palabra para buscar (o 'salir' para terminar): ")
+        palabra = input("\nIngrese una palabra para graficar (o 'salir' para terminar): ")
         if palabra.lower() == 'salir':
             break
             
         if palabra in model.word_to_idx:
-            visualize_embeddings_plotly(model, method='pca', title='Word Embeddings', highlight_word=palabra, dimensions=2)
-            visualize_embeddings_plotly(model, method='tsne', title='Word Embeddings', highlight_word=palabra, dimensions=2)
+            graph(model, method='pca', title='Word Embeddings', highlight_word=palabra, dimensions=2)
+            graph(model, method='tsne', title='Word Embeddings', highlight_word=palabra, dimensions=2)
         else:
             print(f"La palabra '{palabra}' no se encuentra en el vocabulario.")
             all_words = []
@@ -160,8 +160,8 @@ def main():
             vocabulary = tk.get_vocabulary(all_words, is_nested=False)
             max_similarity_score_word, max_similarity, max_sim_row = closest_word(palabra, vocabulary)
             print(max_similarity_score_word, max_similarity, max_sim_row)
-            visualize_embeddings_plotly(model, method='pca', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
-            visualize_embeddings_plotly(model, method='tsne', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
+            graph(model, method='pca', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
+            graph(model, method='tsne', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
 
 if __name__ == "__main__":
     main()

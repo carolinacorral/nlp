@@ -1,11 +1,8 @@
-# word2vec.py
 import numpy as np
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
 import tokelib as tk
 
 class Word2Vec:
-    def __init__(self, window_size=2, embedding_dim=100, learning_rate=0.01):
+    def __init__(self, window_size, embedding_dim, learning_rate):
         self.window_size = window_size
         self.embedding_dim = embedding_dim
         self.learning_rate = learning_rate
@@ -22,7 +19,7 @@ class Word2Vec:
         
         vocabulary = tk.get_vocabulary(all_words, is_nested=False)
         
-        self.word_to_idx = {word: idx for idx, word in enumerate(vocabulary)}
+        self.word_to_idx = tk.get_word_index(vocabulary)
         self.idx_to_word = {idx: word for word, idx in self.word_to_idx.items()}
         self.vocabulary_size = len(vocabulary)
         
