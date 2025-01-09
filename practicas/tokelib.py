@@ -161,7 +161,6 @@ def remove_stopwords(doc, english = False):
     """
     new_doc = []
     for word in doc:
-        print(word)
         if not is_stopword(word, english):
             new_doc.append(word)
     return new_doc
@@ -270,9 +269,7 @@ def bag_of_words_sentence(vocabulary: list, corpus: list) -> list:
     for doc in corpus:
         vocabulary_vector_token = [0]*len(vocabulary)
         for token in doc:
-            print(token)
             vocabulary_vector_token[vocabulary.index(token)] += 1
-        print(vocabulary_vector_token)
         bag += [vocabulary_vector_token]
 
     return bag
