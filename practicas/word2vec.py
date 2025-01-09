@@ -23,12 +23,13 @@ class Word2Vec:
         self.idx_to_word = {idx: word for word, idx in self.word_to_idx.items()}
         self.vocabulary_size = len(vocabulary)
         
+        # Random iniciales, dist uniforme dim vocabulario y embeddings
         self.embeddings = np.random.uniform(-0.1, 0.1, (self.vocabulary_size, self.embedding_dim))
         self.context_weights = np.random.uniform(-0.1, 0.1, (self.vocabulary_size, self.embedding_dim))
     
     def get_context_words(self, sentence, position):
-        start = max(0, position - self.window_size)
-        end = min(len(sentence), position + self.window_size + 1)
+        start = max(0, position - self.window_size) # max para no salirse del window size
+        end = min(len(sentence), position + self.window_size + 1) # same
         context = []
         for i in range(start, end):
             if i != position:
@@ -39,34 +40,35 @@ class Word2Vec:
         return 1 / (1 + np.exp(-np.clip(x, -10, 10)))
     
     def train_step(self, target_idx, context_idx):
-        hidden_layer = self.embeddings[target_idx]
-        output = np.dot(self.context_weights[context_idx], hidden_layer)
-        output = self.sigmoid(output)
-        print(output)
+        """
+            vector de destino
+            vector de contexto
+
+            score alto -> vectores parecidos ||
+            score bajo -> vectores no parecidos -|
+        """
+        vector_target = self.embeddings[target_idx]
+        score = np.dot(self.context_weights[context_idx], vector_target)
+        score = self.sigmoid(score)
+        #print(score)
         
-        error = output - 1.0
+        error = score - 1.0 # goal -> 1, - f + n
         
-        grad_weights = error * hidden_layer
+        grad_weights = error * vector_target
         grad_hidden = error * self.context_weights[context_idx]
         
         self.embeddings[target_idx] -= self.learning_rate * grad_hidden
         self.context_weights[context_idx] -= self.learning_rate * grad_weights
     
     def train(self, corpus_list, epochs=5):
-        for epoch in range(epochs):
-            word_pairs = 0
-            
+        for epoch in range(epochs):            
             for corpus in corpus_list:
                 for i in range(len(corpus)):
                     target_word = corpus[i]
                     context_words = self.get_context_words(corpus, i)
-                    
-                    if target_word in self.word_to_idx:
-                        target_idx = self.word_to_idx[target_word]
-                        for context_word in context_words:
-                            if context_word in self.word_to_idx:
-                                context_idx = self.word_to_idx[context_word]
-                                self.train_step(target_idx, context_idx)
-                                word_pairs += 1
+                    target_idx = self.word_to_idx[target_word]
+                    for context_word in context_words:
+                        context_idx = self.word_to_idx[context_word]
+                        self.train_step(target_idx, context_idx)
             
-            print(f'Epoch {epoch + 1}/{epochs} completed. Processed {word_pairs} word pairs.')
+            print(f'Epoch {epoch + 1}/{epochs}')
