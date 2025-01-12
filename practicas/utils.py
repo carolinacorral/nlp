@@ -3,8 +3,11 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import numpy as np
 from scipy.spatial.distance import cdist
-from nltk.corpus import wordnet
 import tokelib as tk
+import nltk
+nltk.download('wordnet')
+from nltk.corpus import wordnet
+from word2vec import Word2Vec
 
 def read(filepath):
     import tokelib as tk
@@ -130,18 +133,19 @@ def graph(model, method, title, highlight_word, dimensions):
     fig.show()
 
 def main():
-    from word2vec import Word2Vec
-    corpus_paths = [
-        '/Users/ismaelporto/Documents/nlp/practicas/etc/corpus_1.txt',
-        '/Users/ismaelporto/Documents/nlp/practicas/etc/corpus_2.txt',
-        '/Users/ismaelporto/Documents/nlp/practicas/etc/corpus_3.txt'
+    rutas = [
+        '/workspaces/nlp/practicas/etc/corpus_1.txt',
+        '/workspaces/nlp/practicas/etc/corpus_2.txt',
+        '/workspaces/nlp/practicas/etc/corpus_3.txt'
     ]
     
-    corpus_list = [read(path) for path in corpus_paths]
+    corpus_list = [read(path) for path in rutas]
     
     model = Word2Vec(window_size=5, embedding_dim=100, learning_rate=0.01)
+
     model.build_vocabulary(corpus_list)
-    model.train(corpus_list, epochs=90)
+    
+    model.train(corpus_list, epochs=100)
     
     while True:
         palabra = input("\nPalabra: ")
