@@ -118,7 +118,7 @@ def graph(model, method, title, highlight_word, dimensions):
     ))
     
     fig.update_layout(
-        title=f'{title} ({method.upper()})',
+        title=f'{method.upper()}',
         showlegend=False,
         hovermode='closest',
         margin=dict(b=20, l=5, r=5, t=40),
@@ -144,13 +144,13 @@ def main():
     model.train(corpus_list, epochs=90)
     
     while True:
-        palabra = input("\nIngrese una palabra para graficar (o 'salir' para terminar): ")
-        if palabra.lower() == 'salir':
+        palabra = input("\nPalabra: ")
+        if palabra.lower() == 'exit':
             break
             
         if palabra in model.word_to_idx:
-            graph(model, method='pca', title='Word Embeddings', highlight_word=palabra, dimensions=2)
-            graph(model, method='tsne', title='Word Embeddings', highlight_word=palabra, dimensions=2)
+            graph(model, method='pca', title='PCA', highlight_word=palabra, dimensions=2)
+            graph(model, method='tsne', title='TSNE', highlight_word=palabra, dimensions=2)
         else:
             print(f"La palabra '{palabra}' no se encuentra en el vocabulario.")
             all_words = []
@@ -160,8 +160,8 @@ def main():
             vocabulary = tk.get_vocabulary(all_words, is_nested=False)
             max_similarity_score_word, max_similarity, max_sim_row = closest_word(palabra, vocabulary)
             print(max_similarity_score_word, max_similarity, max_sim_row)
-            graph(model, method='pca', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
-            graph(model, method='tsne', title='Word Embeddings', highlight_word=max_similarity_score_word, dimensions=2)
+            graph(model, method='pca', title='PCA', highlight_word=max_similarity_score_word, dimensions=2)
+            graph(model, method='tsne', title='TSNE', highlight_word=max_similarity_score_word, dimensions=2)
 
 if __name__ == "__main__":
     main()

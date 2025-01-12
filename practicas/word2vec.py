@@ -69,4 +69,4 @@ class Word2Vec:
                                 self.train_step(target_idx, context_idx)
                                 word_pairs += 1
             
-            print(f'Epoch {epoch + 1}/{epochs} completed. Processed {word_pairs} word pairs.')
+            print(f'Epoch {epoch + 1}/{epochs}')
