@@ -134,9 +134,9 @@ def graph(model, method, title, highlight_word, dimensions):
 
 def main():
     rutas = [
-        '/workspaces/nlp/practicas/etc/corpus_1.txt',
-        '/workspaces/nlp/practicas/etc/corpus_2.txt',
-        '/workspaces/nlp/practicas/etc/corpus_3.txt'
+        'practicas/etc/corpus_1.txt',
+        'practicas/etc/corpus_2.txt',
+        'practicas/etc/corpus_3.txt'
     ]
     
     corpus_list = [read(path) for path in rutas]
